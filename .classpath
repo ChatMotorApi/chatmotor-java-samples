@@ -30,7 +30,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/chatmotor-public-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/classmate-1.5.1.jar"/>
 	<classpathentry kind="lib" path="lib/cleverclient-1.4.3.jar"/>
 	<classpathentry kind="lib" path="lib/commons-codec-1.5.jar"/>
