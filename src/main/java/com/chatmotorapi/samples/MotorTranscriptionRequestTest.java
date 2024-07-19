@@ -35,7 +35,9 @@ import java.util.Date;
 
 import com.chatmotorapi.api.ChatMotor;
 import com.chatmotorapi.api.MotorLargeResponse;
+import com.chatmotorapi.api.transcription.MotorTranscriptionDuration;
 import com.chatmotorapi.api.transcription.MotorTranscriptionRequest;
+import com.chatmotorapi.gpt.api.AndroidUtil;
 
 public class MotorTranscriptionRequestTest {
 
@@ -70,6 +72,11 @@ public class MotorTranscriptionRequestTest {
 	} else {
              System.out.println("throwable   : " + largeReponse.getThrowable());
 	}
+	
+        if (! AndroidUtil.isAndroid()) {
+            int duration = MotorTranscriptionDuration.getDuration(chatMotor, new File(transcriptionFilePath));
+            System.out.println("Duration in seconds: " + duration);
+        }
 	
 	System.out.println(new Date() + " End.");
     }
