@@ -1,6 +1,7 @@
 package com.chatmotorapi.samples;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.chatmotorapi.api.ChatMotor;
@@ -56,6 +57,7 @@ public class MotorRequestStreamingSample {
 	     }
 	 }
 		
+	 System.out.println(new Date() + " End.");
     }
 
 }
