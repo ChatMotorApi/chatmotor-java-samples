@@ -6,7 +6,7 @@
 
 # ChatMotor API Java Samples
 
-Welcome to the ChatMotor API Java Samples repository! This project contains a collection of ready-to-use Java samples demonstrating how to integrate and utilize the powerful features of the ChatMotor API in your Java applications.
+Welcome to the [ChatMotor API](https://www.chatmotor.ai/) Java Samples repository! This project contains a collection of ready-to-use Java samples demonstrating how to integrate and utilize the powerful features of the ChatMotor API in your Java applications.
 
 ## Overview
 
@@ -39,7 +39,7 @@ Before running the samples, ensure you have the following prerequisites:
 - **Java Development Kit (JDK)**: Version 11 or higher.
 - **Maven**: For managing project dependencies.
 - **ChatMotor License**: Obtain your ChatMotor license file from the [ChatMotor](https://www.chatmotor.ai/trial/) website.
-- **ChatGPT**  : an API key.
+- **ChatGPT**: an API key.
 
 ## Getting Started
 
@@ -64,7 +64,7 @@ Move the test files from **`src/main/resources`** to `<user.home>/chatmotor-samp
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/ChatMotorApi/chatmotor-java-samples?tab=MIT-1-ov-file#readme) file for more details.
 
 ## Support
 
