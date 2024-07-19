@@ -60,7 +60,7 @@ export MOTOR_API_KEY=your_openai_api_key
 
 **Install test files** 
 
-Move the test files from **`src/main/resources`** to `<user.home>/chatmotor-samples` (or to any directory defined by the **`SamplesParms.SAMPLE_FILES_DIR`** static String.
+Move the test files from `src/main/resources` to `<user.home>/chatmotor-samples` (or to any directory defined by the `SamplesParms.SAMPLE_FILES_DIR` static String.
 
 ## License
 
