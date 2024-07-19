@@ -46,7 +46,7 @@ public class MotorTranslationRequestSampleHtml2 {
     public static void main(String[] args) throws Exception {
 	System.out.println(new Date() + " Begin...");
 
-	String filePath = SamplesParms.SAMPLE_FILES_DIR  + File.separator + "Share-Alike-and-ML-Report-FINAL-extract.html";
+	String filePath = SamplesParms.SAMPLE_FILES_DIR  + File.separator + "the-sun-also-rises-chapter-1.html";
 	String responsePath = filePath + ".translated.streaming.html";
 	// String organisationId = "KawanSoft";
 
