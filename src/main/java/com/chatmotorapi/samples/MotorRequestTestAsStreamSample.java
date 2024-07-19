@@ -1,4 +1,4 @@
-package com.chatmotorapi.api.test.android.run;
+package com.chatmotorapi.samples;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,62 +11,64 @@ import com.chatmotorapi.api.MotorRequest;
 import com.chatmotorapi.api.MotorStreamStatus;
 import com.chatmotorapi.api.MotorSystemMessage;
 import com.chatmotorapi.api.MotorUserMessage;
+import com.chatmotorapi.api.OpenAiError;
+import com.chatmotorapi.api.OpenAiErrorType;
 import com.chatmotorapi.api.listener.ConsoleResponseListener;
 import com.chatmotorapi.api.listener.MotorResponseListener;
-import com.chatmotorapi.api.test.android.util.ChatMotorGetter;
-import com.chatmotorapi.api.version.VersionValues;
 
-public class MotorRequestTestAsStream {
+public class MotorRequestTestAsStreamSample {
 
     public static void main(String[] args)  throws Exception  {
-	test();
-    }
-
-    
-    public static void test() {
-	
-	System.out.println(new Date() + " MotorRequestTestAsStream Begin...");
-	System.out.println(VersionValues.VERSION + " " + VersionValues.DATE);
-	
-	//String organisationId = "KawanSoft";
+	System.out.println(new Date() + " ChatMotorApiInChunks Begin...");
 	 
-	ChatMotor chatMotor = ChatMotorGetter.getChatMotor();
+	// We assume that env var MOTOR_LICENSE_FILE_PATH and MOTOR_API_KEY are set
+	// Create a ChatMotor instance.
+	ChatMotor chatMotor = ChatMotor.builder().build();
 	
 	 // We optionally build a MotorAiOptions instance.
 	 MotorAiOptions options = MotorAiOptions.builder()
 		    .temperature(0.0)    // Controls the randomness of the AI responses
-		    .maxTokens(150)      // Defines the maximum number of tokens in each response
+		    .maxTokens(1500)      // Defines the maximum number of tokens in each response
 		    .build();
 	 
 	 List<MotorMessage> motorMessages = new ArrayList<MotorMessage>();
 	 motorMessages.add(new MotorSystemMessage("You are an expert in AI."));
-	 motorMessages.add(new MotorUserMessage("Write a technical article about ChatGPT, no more than 100 words."));
+	 motorMessages.add(new MotorUserMessage("Write a technical article about ChatGPT, no more than 1500 words."));
 
 	 // We make a request to the ChatMotor.
 	 MotorRequest motorRequest = MotorRequest.builder()
 		.chatMotor(chatMotor)
-		.aiModel("gpt-4") // The AI model to use. FOR ANDROID.
+		//.aiModel("gpt-4")
 		.motorAiOptions(options)
 		.messages(motorMessages)
 		.build();
 	 
          // We execute the request.
 	 MotorResponseListener consoleResponseListener = new ConsoleResponseListener();
+	 
+	 // Get error details if any.
 	 MotorStreamStatus motorStreamStatus = motorRequest.executeAsStream(consoleResponseListener);
-	
+	 
+	 // Check if the response is ok.
 	 if (motorStreamStatus.isResponseOk()) {
-	     System.out.println("OK!");
-	 }
-	 else {
-	     System.out.println("KO!");
-             System.out.println("motorStreamStatus.getThrowable()   : " + motorStreamStatus.getThrowable());
-             
+	     // Nothing to do here. Display is done by the listener.
+	 } else {
+	     // If the response is not ok, we get the error message and the throwable.
+	     OpenAiError openAiError = motorStreamStatus.getOpenAiError();
+	     OpenAiErrorType errorType = openAiError.getType();
+
+	     if (errorType != OpenAiErrorType.NO_OPENAI_ERROR) {
+		 System.out.println("OpenAI has returned an error : " + openAiError);
+	     } else {
+		 System.out.println("throwable   : " + motorStreamStatus.getThrowable());
+	     }
 	 }
 	 
 	 System.out.println();
-	 System.out.println(new Date() + " MotorRequestTestAsStream End.");
-	 System.exit(1);
+	 System.out.println(new Date() + " ChatMotorApiInChunks End.");
     }
+
+
     
     
   

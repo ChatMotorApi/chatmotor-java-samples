@@ -1,4 +1,4 @@
-package com.chatmotorapi.clean.samples;
+package com.chatmotorapi.samples;
 
 import java.io.File;
 import java.io.InputStream;
@@ -8,56 +8,49 @@ import java.nio.file.StandardCopyOption;
 import java.util.Date;
 
 import com.chatmotorapi.api.ChatMotor;
-import com.chatmotorapi.api.MotorAiOptions;
-import com.chatmotorapi.api.MotorLargeRequestLines;
+import com.chatmotorapi.api.MotorLargeRequestText;
 import com.chatmotorapi.api.MotorLargeResponse;
 import com.chatmotorapi.api.MotorSystemMessage;
 import com.chatmotorapi.api.OpenAiError;
 import com.chatmotorapi.api.OpenAiErrorType;
 
-public class MotorLargeRequestLinesSample {
+public class MotorLargeRequestTextSample {
 
-
-    
     public static String CR_LF = System.getProperty("line.separator");
 
     public static void main(String[] args) throws Exception {
 	System.out.println(new Date() + " Begin...");
 
-	String filePath = SamplesParms.SAMPLE_FILES_DIR + File.separator + "temp_fahrenheit.txt";
-	String responsePath = SamplesParms.SAMPLE_FILES_DIR + File.separator  + "temp_celsius.csv";
+	String filePath = SamplesParms.SAMPLE_FILES_DIR + File.separator  + "proust.txt";
+	String responseFile = filePath + ".response.txt";
 	
-	// We assume that env var MOTOR_LICENSE_FILE_PATH and MOTOR_API_KEY are set
 	// Create a ChatMotor instance.
+	// We assume that env var MOTOR_LICENSE_FILE_PATH and MOTOR_API_KEY are set
 	ChatMotor chatMotor = ChatMotor.builder().build();
 
-	// Optionally build a MotorAiOptions instance.
-	MotorAiOptions options = MotorAiOptions.builder()
-		.temperature(0.0) // Controls the randomness of the AI responses
-		.maxTokens(4096) // Defines the maximum number of tokens in each response
-		.build();
-
-	MotorSystemMessage motorSystemMessage = new MotorSystemMessage(
-		    "I will provide you with temperature measurements in Fahrenheit in a text file. "
-		    + "Convert the temperatures to degrees Celsius and add ';true' at the end of the line "
-		    + "if the temperature is above 20 degrees Celsius. "
-		    + "Do not add any comments and maintain the exact input format "
-		    + "without adding any new CR/LF characters."
-		);
-	// We make a request to the ChatMotor.
-	MotorLargeRequestLines request = MotorLargeRequestLines.builder()
+	String systemPrompt = "I will give you a French extract from 'A la Recherche du Temps Perdu.' "
+		+ "Please explain in English who the characters are, what they are doing, "
+		+ "and their goals if you can perceive them."
+		+ "Please add a blank line, then this line: "
+		+ "--------------------------------------------------------------------------------------------"
+		+ ", and then a second blank line at the end of your response. "
+		+ "Do not include the extraction from the book.";
+		
+	MotorSystemMessage motorSystemMessage = new MotorSystemMessage(systemPrompt);
+	
+	// Make a request to the ChatMotor.
+	MotorLargeRequestText request = MotorLargeRequestText.builder()
 		.chatMotor(chatMotor)
-		.motorAiOptions(options)
 		.systemMessage(motorSystemMessage)
 		.filePath(filePath)
 		.build();
 
-	// We execute the request.
+	// Execute the request.
 	MotorLargeResponse largeResponse = request.execute();
 
 	if (largeResponse.isResponseOk()) {
 	     try (InputStream in = largeResponse.getInputStream();) {
-		 Files.copy(in, Paths.get(responsePath), StandardCopyOption.REPLACE_EXISTING);
+		 Files.copy(in, Paths.get(responseFile), StandardCopyOption.REPLACE_EXISTING);
 	     }
 	} else {
 	    
@@ -85,7 +78,7 @@ public class MotorLargeRequestLinesSample {
 
 	System.out.println();
 	System.out.println(new Date() + " End.");
+	System.exit(0);
     }
-  
 
 }

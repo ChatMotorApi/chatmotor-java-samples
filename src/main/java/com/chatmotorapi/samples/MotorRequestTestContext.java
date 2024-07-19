@@ -1,4 +1,4 @@
-package com.chatmotorapi.clean.samples;
+package com.chatmotorapi.samples;
 
 import java.util.ArrayList;
 import java.util.Date;
