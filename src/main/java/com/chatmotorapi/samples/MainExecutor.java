@@ -47,9 +47,6 @@ public class MainExecutor {
 	MotorLargeRequestTextSample.main(args);
 	System.out.println("*** " + new Date() + " MotorLargeRequestTextSample ***");
 
-	MotorLargeTranscriptionRequestTest.main(args);
-	System.out.println("*** " + new Date() + " MotorLargeTranscriptionRequestTest ***");
-
 	MotorRequestSample.main(args);
 	System.out.println("*** " + new Date() + " MotorRequestSample ***");
 
@@ -65,9 +62,6 @@ public class MainExecutor {
 	MotorSummarizerRequestTest.main(args);
 	System.out.println("*** " + new Date() + " MotorSummarizerRequestTest ***");
 
-	MotorTranscripFormatterRequestSample.main(args);
-	System.out.println("*** " + new Date() + " MotorTranscripFormatterRequestSample ***");
-
 	MotorTranslationRequestSample.main(args);
 	System.out.println("*** " + new Date() + " MotorTranslationRequestSample ***");
 
@@ -82,6 +76,12 @@ public class MainExecutor {
 
 	MotorVisionRequestSampleLocal.main(args);
 	System.out.println("*** " + new Date() + " MotorVisionRequestSampleLocal ***");
+	
+	MotorLargeTranscriptionRequestTest.main(args);
+	System.out.println("*** " + new Date() + " MotorLargeTranscriptionRequestTest ***");
+	
+	MotorTranscripFormatterRequestSample.main(args);
+	System.out.println("*** " + new Date() + " MotorTranscripFormatterRequestSample ***");
 
     }
 }
