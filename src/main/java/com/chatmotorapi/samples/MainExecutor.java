@@ -29,57 +29,52 @@ package com.chatmotorapi.samples;
 import java.util.Date;
 
 public class MainExecutor {
-    public static void main(String[] args) {
-        // Calls to each main method of the listed classes
-        try {
-            MotorImageRequestSample.main(args);
-            System.out.println("*** " + new Date() + " MotorImageRequestSample ***");
-            
-            MotorLargeRequestLinesSample.main(args);
-            System.out.println("*** " + new Date() + " MotorLargeRequestLinesSample ***");
-            
-            MotorLargeRequestTextSample.main(args);
-            System.out.println("*** " + new Date() + " MotorLargeRequestTextSample ***");
-            
-            MotorLargeTranscriptionRequestTest.main(args);
-            System.out.println("*** " + new Date() + " MotorLargeTranscriptionRequestTest ***");
-            
-            MotorRequestSample.main(args);
-            System.out.println("*** " + new Date() + " MotorRequestSample ***");
-            
-            MotorRequestStreamingSample.main(args);
-            System.out.println("*** " + new Date() + " MotorRequestStreamingSample ***");
-            
-            MotorRequestTestAsStreamSample.main(args);
-            System.out.println("*** " + new Date() + " MotorRequestTestAsStreamSample ***");
-            
-            MotorRequestTestContext.main(args);
-            System.out.println("*** " + new Date() + " MotorRequestTestContext ***");
-            
-            MotorSummarizerRequestTest.main(args);
-            System.out.println("*** " + new Date() + " MotorSummarizerRequestTest ***");
-            
-            MotorTranscripFormatterRequestSample.main(args);
-            System.out.println("*** " + new Date() + " MotorTranscripFormatterRequestSample ***");
-            
-            MotorTranslationRequestSample.main(args);
-            System.out.println("*** " + new Date() + " MotorTranslationRequestSample ***");
-            
-            MotorTranslationRequestSampleHtml.main(args);
-            System.out.println("*** " + new Date() + " MotorTranslationRequestSampleHtml ***");
-            
-            MotorTranslationRequestSampleHtml2.main(args);
-            System.out.println("*** " + new Date() + " MotorTranslationRequestSampleHtml2 ***");
-            
-            MotorVisionRequestSample.main(args);
-            System.out.println("*** " + new Date() + " MotorVisionRequestSample ***");
-            
-            MotorVisionRequestSampleLocal.main(args);
-            System.out.println("*** " + new Date() + " MotorVisionRequestSampleLocal ***");
-            
-        } catch (Exception e) {
-            System.err.println("Error during execution: " + e.getMessage());
-            e.printStackTrace();
-        }
+    public static void main(String[] args) throws Exception {
+
+	MotorImageRequestSample.main(args);
+	System.out.println("*** " + new Date() + " MotorImageRequestSample ***");
+
+	MotorLargeRequestLinesSample.main(args);
+	System.out.println("*** " + new Date() + " MotorLargeRequestLinesSample ***");
+
+	MotorLargeRequestTextSample.main(args);
+	System.out.println("*** " + new Date() + " MotorLargeRequestTextSample ***");
+
+	MotorLargeTranscriptionRequestTest.main(args);
+	System.out.println("*** " + new Date() + " MotorLargeTranscriptionRequestTest ***");
+
+	MotorRequestSample.main(args);
+	System.out.println("*** " + new Date() + " MotorRequestSample ***");
+
+	MotorRequestStreamingSample.main(args);
+	System.out.println("*** " + new Date() + " MotorRequestStreamingSample ***");
+
+	MotorRequestTestAsStreamSample.main(args);
+	System.out.println("*** " + new Date() + " MotorRequestTestAsStreamSample ***");
+
+	MotorRequestTestContext.main(args);
+	System.out.println("*** " + new Date() + " MotorRequestTestContext ***");
+
+	MotorSummarizerRequestTest.main(args);
+	System.out.println("*** " + new Date() + " MotorSummarizerRequestTest ***");
+
+	MotorTranscripFormatterRequestSample.main(args);
+	System.out.println("*** " + new Date() + " MotorTranscripFormatterRequestSample ***");
+
+	MotorTranslationRequestSample.main(args);
+	System.out.println("*** " + new Date() + " MotorTranslationRequestSample ***");
+
+	MotorTranslationRequestSampleHtml.main(args);
+	System.out.println("*** " + new Date() + " MotorTranslationRequestSampleHtml ***");
+
+	MotorTranslationRequestSampleHtml2.main(args);
+	System.out.println("*** " + new Date() + " MotorTranslationRequestSampleHtml2 ***");
+
+	MotorVisionRequestSample.main(args);
+	System.out.println("*** " + new Date() + " MotorVisionRequestSample ***");
+
+	MotorVisionRequestSampleLocal.main(args);
+	System.out.println("*** " + new Date() + " MotorVisionRequestSampleLocal ***");
+
     }
 }

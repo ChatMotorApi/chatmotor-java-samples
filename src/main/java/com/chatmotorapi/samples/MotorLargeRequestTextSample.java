@@ -104,7 +104,6 @@ public class MotorLargeRequestTextSample {
 
 	System.out.println();
 	System.out.println(new Date() + " End.");
-	System.exit(0);
     }
 
 }
