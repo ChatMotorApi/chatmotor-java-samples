@@ -31,6 +31,9 @@ import java.util.Date;
 public class MainExecutor {
     public static void main(String[] args) throws Exception {
 
+	MotorAudioFileConverterTest.main(args);
+	System.out.println("*** " + new Date() + " MotorAudioFileConverterTest ***");
+	
 	MotorImageRequestSample.main(args);
 	System.out.println("*** " + new Date() + " MotorImageRequestSample ***");
 
