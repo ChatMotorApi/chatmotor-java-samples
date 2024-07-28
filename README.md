@@ -38,8 +38,8 @@ Before running the samples, ensure you have the following prerequisites:
 
 - **Java Development Kit (JDK)**: Version 11 or higher.
 - **Maven**: For managing project dependencies.
-- **ChatMotor License**: Obtain your ChatMotor license file from the [ChatMotor](https://www.chatmotor.ai/trial/) website.
-- **ChatGPT**: an API key.
+- **ChatMotor License** **File**: Obtain your ChatMotor license file from the [https://www.chatmotor.ai/](https://www.chatmotor.ai/) website.
+- **ChatGPT**: Obtain an API key from the [OpenAI Website](https://openai.com/).
 
 ## Getting Started
 
