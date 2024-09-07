@@ -27,6 +27,7 @@
 package com.chatmotorapi.samples;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -36,6 +37,7 @@ import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.chatmotorapi.notifier.FailoverNotifier;
 import com.chatmotorapi.notifier.SmsFailoverNotifier;
 
 public class SmsFailoverNotifierSample {
@@ -49,32 +51,38 @@ public class SmsFailoverNotifierSample {
 	
 	Logger logger = LoggerFactory.getLogger(SmsFailoverNotifierSample.class);
 	
-	File fileAccount = new File( SystemUtils.USER_HOME + File.separator + "account_sid.txt");
-	if (!fileAccount.exists() ) {
-            logger.error("Account SID file not found at {}", fileAccount.getAbsolutePath());
-            System.exit(1);
-        }
-	String accountSid = FileUtils.readFileToString( fileAccount, "UTF-8" );
+	// Get from user.home confidential information
+	String accountSid = getFileContent("twilio_account_sid.txt");
+	String authToken = getFileContent("twilio_auth_token.txt");
+	String recipientPhoneNumber = getFileContent("twilio_recipient.txt");
+	String fromPhoneNumber = getFileContent("twilio_sender.txt");
 	
-	
-	File fileAuthtoken = new File( SystemUtils.USER_HOME + File.separator + "auth_token.txt");
-	if (!fileAuthtoken.exists() ) {
-            logger.error("Account SID file not found at {}", fileAuthtoken.getAbsolutePath());
-            System.exit(1);
-        }
-	String authToken =  FileUtils.readFileToString( fileAuthtoken, "UTF-8" );
-	
-	List<String> phoneNumbers = Arrays.asList("+33623261275");
+	List<String> phoneNumbers = Arrays.asList(recipientPhoneNumber);
 	String messageText = "Hello, this is a test message!";
-	String fromPhoneNumber = "+14159149273";
 
 	// Create a new SmsFailoverNotifier instance
-	SmsFailoverNotifier notifier = new SmsFailoverNotifier(logger, accountSid,
+	FailoverNotifier notifier = new SmsFailoverNotifier(logger, accountSid,
 	authToken, phoneNumbers, messageText, fromPhoneNumber);
 	notifier.notifyFailover();
 	
 	System.out.println(new Date() + ": Done");
 
+    }
+
+
+    /**
+     * Gets the content of a file name located in user.home as a string.
+     * @param filename the file name
+     * @return the content of the file as a string.
+     * @throws IOException
+     */
+    private static String getFileContent(String filename) throws IOException {
+	File file = new File( SystemUtils.USER_HOME + File.separator + filename);
+	if (!file.exists() ) {
+            throw new IllegalArgumentException("File not found at: " + file.getAbsolutePath());
+        }
+	String accountSid = FileUtils.readFileToString( file, "UTF-8" );
+	return accountSid;
     }
 
 }
