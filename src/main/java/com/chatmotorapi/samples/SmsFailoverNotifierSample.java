@@ -1,88 +1,55 @@
-/*
- * ChatMotor API Samples
- *
- * MIT License
- * 
- * Copyright (c) 2024 ChatMotorApi
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-
 package com.chatmotorapi.samples;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.chatmotorapi.api.ChatMotor;
 import com.chatmotorapi.notifier.FailoverNotifier;
 import com.chatmotorapi.notifier.SmsFailoverNotifier;
 
+/**
+ * Demonstrates how to use the {@link SmsFailoverNotifier} in conjunction with the {@link ChatMotor} API
+ * to handle failover scenarios by sending SMS notifications.
+ * 
+ * This sample initializes a {@link SmsFailoverNotifier} with Twilio credentials and sets it up to send
+ * an SMS alert when the primary ChatMotor API key fails, automatically switching to a failover API key.
+ * 
+ * Usage:
+ * <ul>
+ * <li>Set your Twilio Account SID and Auth Token</li>
+ * <li>Configure the recipient and sender phone numbers</li>
+ * <li>Set the message to be sent on failover</li>
+ * <li>Initialize the {@link ChatMotor} instance with the failover notifier</li>
+ * </ul>
+ */
 public class SmsFailoverNotifierSample {
 
-    /**
-     * @param args
-     */
+    @SuppressWarnings("unused")
     public static void main(String[] args) throws Exception {
+        Logger logger = LoggerFactory.getLogger(SmsFailoverNotifierSample.class);
+        
+        String accountSid = "[Twilio Account SID]";
+        String authToken = "[Twilio Auth Token]";
+        String recipientPhoneNumber = "+88888888888";
+        String fromPhoneNumber = "+99999999999"; 
+        
+        List<String> phoneNumbers = Arrays.asList(recipientPhoneNumber);
+        String messageText = "The main ChatMotor API Key is down. Switching to the failover ChatMotor API Key....";
 
-	System.out.println(new Date() + ": Running SmsFailoverNotifierSample...");
-	
-	Logger logger = LoggerFactory.getLogger(SmsFailoverNotifierSample.class);
-	
-	// Get from user.home confidential information
-	String accountSid = getFileContent("twilio_account_sid.txt");
-	String authToken = getFileContent("twilio_auth_token.txt");
-	String recipientPhoneNumber = getFileContent("twilio_recipient.txt");
-	String fromPhoneNumber = getFileContent("twilio_sender.txt");
-	
-	List<String> phoneNumbers = Arrays.asList(recipientPhoneNumber);
-	String messageText = "Hello, this is a test message!";
-
-	// Create a new SmsFailoverNotifier instance
-	FailoverNotifier notifier = new SmsFailoverNotifier(logger, accountSid,
-	authToken, phoneNumbers, messageText, fromPhoneNumber);
-	notifier.notifyFailover();
-	
-	System.out.println(new Date() + ": Done");
-
+        // Create a new SmsFailoverNotifier instance
+        FailoverNotifier smsFailoverNotifier = new SmsFailoverNotifier(logger, accountSid, authToken, phoneNumbers, messageText,
+            fromPhoneNumber);
+        
+        String failoverApiKey = "[Failover OpenAI API Key]";
+        ChatMotor chatMotor = ChatMotor
+            .builder()
+            .failoverApiKey(failoverApiKey)
+            //.failoverNotifier(smsFailoverNotifier) // Uncomment to activate failover notifier
+            .build();
+        
+        // Use the ChatMotor instance as needed...
     }
-
-
-    /**
-     * Gets the content of a file name located in user.home as a string.
-     * @param filename the file name
-     * @return the content of the file as a string.
-     * @throws IOException
-     */
-    private static String getFileContent(String filename) throws IOException {
-	File file = new File( SystemUtils.USER_HOME + File.separator + filename);
-	if (!file.exists() ) {
-            throw new IllegalArgumentException("File not found at: " + file.getAbsolutePath());
-        }
-	String accountSid = FileUtils.readFileToString( file, "UTF-8" );
-	return accountSid;
-    }
-
 }

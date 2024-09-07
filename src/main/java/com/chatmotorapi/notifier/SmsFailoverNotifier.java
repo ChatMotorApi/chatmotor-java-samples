@@ -11,8 +11,44 @@ import com.twilio.type.PhoneNumber;
 
 /**
  * SmsFailoverNotifier sends an SMS to a list of phone numbers using Twilio when
- * a failover occurs.
+ * a failover occurs. This class is designed to be integrated into systems that require
+ * notification capabilities to handle API key failovers or other critical operational changes.
+ *
+ * <p>It uses the Twilio API to send messages and requires valid Twilio credentials.
+ * The notifier is intended to be used as part of an application that can respond to
+ * failover events, such as switching API keys when the primary key becomes unavailable.</p>
+ *
+ * <h2>Sample Usage:</h2>
+ * The following example demonstrates how to initialize and use the SmsFailoverNotifier:
+ * <pre>
+ * Logger logger = LoggerFactory.getLogger(SmsFailoverNotifierSample.class);
+ * 
+ * String accountSid = "[Twilio Account SID]";  // Replace with your Twilio Account SID
+ * String authToken = "[Twilio Auth Token]";    // Replace with your Twilio Auth Token
+ * String recipientPhoneNumber = "+88888888888"; // The phone number to notify
+ * String fromPhoneNumber = "+99999999999";      // The Twilio phone number used to send the message
+ * 
+ * List<String> phoneNumbers = Arrays.asList(recipientPhoneNumber);
+ * String messageText = "The main ChatMotor API Key is down. Switching to the failover ChatMotor API Key....";
+ * 
+ * // Create a new SmsFailoverNotifier instance with the necessary details
+ * FailoverNotifier smsFailoverNotifier = new SmsFailoverNotifier(
+ *     logger, accountSid, authToken, phoneNumbers, messageText, fromPhoneNumber);
+ * 
+ * String failoverApiKey = "[Failover OpenAI API Key]";  // Replace with your failover API key
+ * ChatMotor chatMotor = ChatMotor
+ *     .builder()
+ *     .failoverApiKey(failoverApiKey)         // Set the failover API key
+ *     .failoverNotifier(smsFailoverNotifier)  // Set the notifier to the ChatMotor instance
+ *     .build();
+ * 
+ * // The ChatMotor instance is now ready to use, handling failover with SMS notifications
+ * </pre>
+ *
+ * @see com.chatmotorapi.api.ChatMotor
+ * @see com.chatmotorapi.notifier.FailoverNotifier
  */
+
 public class SmsFailoverNotifier implements FailoverNotifier {
 
     private final Logger logger;
