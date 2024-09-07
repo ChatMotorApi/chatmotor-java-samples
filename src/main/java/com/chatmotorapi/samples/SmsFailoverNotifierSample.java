@@ -28,6 +28,7 @@ package com.chatmotorapi.samples;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -44,24 +45,25 @@ public class SmsFailoverNotifierSample {
      */
     public static void main(String[] args) throws Exception {
 
+	System.out.println(new Date() + ": Running SmsFailoverNotifierSample...");
+	
 	Logger logger = LoggerFactory.getLogger(SmsFailoverNotifierSample.class);
 	
-	File file = new File( SystemUtils.USER_HOME + File.separator + "account_sid.txt");
-	if (!file.exists() ) {
-            logger.error("Account SID file not found at {}", file.getAbsolutePath());
+	File fileAccount = new File( SystemUtils.USER_HOME + File.separator + "account_sid.txt");
+	if (!fileAccount.exists() ) {
+            logger.error("Account SID file not found at {}", fileAccount.getAbsolutePath());
             System.exit(1);
         }
-	String accountSid = FileUtils.readFileToString( file, "UTF-8" );
+	String accountSid = FileUtils.readFileToString( fileAccount, "UTF-8" );
 	
 	
-	File file2 = new File( SystemUtils.USER_HOME + File.separator + "auth_token.txt");
-	if (!file2.exists() ) {
-            logger.error("Account SID file not found at {}", file2.getAbsolutePath());
+	File fileAuthtoken = new File( SystemUtils.USER_HOME + File.separator + "auth_token.txt");
+	if (!fileAuthtoken.exists() ) {
+            logger.error("Account SID file not found at {}", fileAuthtoken.getAbsolutePath());
             System.exit(1);
         }
-	String authToken =  FileUtils.readFileToString( file2, "UTF-8" );
+	String authToken =  FileUtils.readFileToString( fileAuthtoken, "UTF-8" );
 	
-
 	List<String> phoneNumbers = Arrays.asList("+33623261275");
 	String messageText = "Hello, this is a test message!";
 	String fromPhoneNumber = "+14159149273";
@@ -70,6 +72,8 @@ public class SmsFailoverNotifierSample {
 	SmsFailoverNotifier notifier = new SmsFailoverNotifier(logger, accountSid,
 	authToken, phoneNumbers, messageText, fromPhoneNumber);
 	notifier.notifyFailover();
+	
+	System.out.println(new Date() + ": Done");
 
     }
 
