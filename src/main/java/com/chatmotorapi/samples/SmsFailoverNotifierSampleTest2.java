@@ -38,8 +38,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.chatmotorapi.notifier.FailoverNotifier;
+import com.chatmotorapi.notifier.SmsFailoverNotifier;
 
-public class SmsFailoverNotifierSampleTest {
+public class SmsFailoverNotifierSampleTest2 {
 
     /**
      * @param args
@@ -49,7 +50,7 @@ public class SmsFailoverNotifierSampleTest {
 
 	System.out.println(new Date() + ": Running SmsFailoverNotifierSample...");
 	
-        Logger logger = LoggerFactory.getLogger(SmsFailoverNotifierSampleTest.class);
+        Logger logger = LoggerFactory.getLogger(SmsFailoverNotifierSampleTest2.class);
 	// Get from user.home confidential information
 	String accountSid = getFileContent("twilio_account_sid.txt");
 	String authToken = getFileContent("twilio_auth_token.txt");
@@ -60,10 +61,11 @@ public class SmsFailoverNotifierSampleTest {
 	String messageText = "The main ChatMotor API Key is down. Swithing to the failover ChatMotor API Key....";
 
 	// Create a new SmsFailoverNotifier instance
-	FailoverNotifier failoverNotifier = new FailoverNotifier() {};
+	FailoverNotifier smsFailoverNotifier = new SmsFailoverNotifier(logger, accountSid, authToken, phoneNumbers, messageText,
+		fromPhoneNumber);
 	
         // Start the failover notification process	
-	failoverNotifier.notifyFailover();
+	smsFailoverNotifier.notifyFailover();
 	
 	System.out.println(new Date() + ": Done");
 
