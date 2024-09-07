@@ -48,27 +48,33 @@ public class SmsFailoverNotifier implements FailoverNotifier {
      */
     @Override
     public void notifyFailover() {
-	Twilio.init(accountSid, authToken);
 
-	if (phoneNumbers.isEmpty()) {
-	    logger.warn("No phone numbers provided to notify.");
-	    return;
-	}
+	try {
+	    Twilio.init(accountSid, authToken);
 
-	for (String number : phoneNumbers) {
-	    if (number != null && !number.trim().isEmpty()) {
-		try {
-		    Message message = Message.creator(new PhoneNumber(number), // To number
-			    new PhoneNumber(fromPhoneNumber), // From a valid Twilio number
-			    messageText).create();
-
-		    logger.info("Sent message to {} with SID: {}", number, message.getSid());
-		} catch (Exception e) {
-		    logger.error("Failed to send SMS to {}: {}", number, e.getMessage(), e);
-		}
-	    } else {
-		logger.warn("Invalid phone number provided; skipping.");
+	    if (phoneNumbers.isEmpty()) {
+		logger.warn("No phone numbers provided to notify.");
+		return;
 	    }
+
+	    for (String number : phoneNumbers) {
+		if (number != null && !number.trim().isEmpty()) {
+		    try {
+			Message message = Message.creator(new PhoneNumber(number), // To number
+				new PhoneNumber(fromPhoneNumber), // From a valid Twilio number
+				messageText).create();
+
+			logger.info("Sent message to {} with SID: {}", number, message.getSid());
+		    } catch (Exception e) {
+			logger.error("Failed to send SMS to {}: {}", number, e.getMessage(), e);
+		    }
+		} else {
+		    logger.warn("Invalid phone number provided; skipping.");
+		}
+	    }
+	} catch (Exception e) {
+	    logger.error("An Exception occured: " + e.toString());
 	}
+
     }
 }
