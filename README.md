@@ -38,7 +38,6 @@ Before running the samples, ensure you have the following prerequisites:
 
 - **Java Development Kit (JDK)**: Version 11 or higher.
 - **Maven**: For managing project dependencies.
-- **ChatMotor License** **File**: Obtain your ChatMotor license file from the [https://www.chatmotor.ai/](https://www.chatmotor.ai/) website.
 - **ChatGPT**: Obtain an API key from the [OpenAI Website](https://openai.com/).
 
 ## Getting Started
@@ -54,7 +53,7 @@ git clone https://github.com/yourusername/chatmotor-java-samples.git
 Ensure that the following environment variables are set:
 
 ```sh
-export MOTOR_LICENSE_FILE_PATH=/path/to/chatmotor_license_key.txt
+export CHATMOTOR_HOME=/path/to/chatmotor-api-1.2-beta
 export MOTOR_API_KEY=your_openai_api_key
 ```
 
