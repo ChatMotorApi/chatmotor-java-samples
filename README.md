@@ -1,4 +1,4 @@
-# ChatMotor API v1.0-beta
+# ChatMotor API v1.2-beta
 
 # Java Samples
 
